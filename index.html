@@ -3,22 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PC Canada Builder - Build Your Dream PC</title>
+    <title>CanadaBuild - PC Builder</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <div class="logo-icon">🖥️</div>
+                <div class="logo-text">
+                    <div class="logo-brand">CanadaBuild</div>
+                    <div class="logo-subtitle">PC BUILDER</div>
+                </div>
+            </div>
+            <div class="navbar-menu" id="navbar-menu">
+                <button class="nav-link active" onclick="goToLanding()">
+                    🏠 Home
+                </button>
+                <button class="nav-link" onclick="goToBuilder()">
+                    🖱️ PC Builder
+                </button>
+                <button class="nav-link" onclick="alert('Saved builds coming soon!')">
+                    📋 Saved Builds
+                </button>
+            </div>
+        </div>
+    </nav>
+
     <!-- Landing Page -->
     <div id="landing-page" class="landing-page">
-        <header class="landing-header">
-            <div class="landing-container">
-                <h1 class="landing-title">Canadian PC Builder</h1>
-                <h2 class="landing-subtitle">Build Your<br>Dream PC<br>in Canada</h2>
+        <div class="landing-content">
+            <div class="landing-text">
+                <div class="red-line"></div>
+                <p class="landing-label">CANADIAN PC BUILDER</p>
+                
+                <h1 class="landing-title">
+                    Build Your
+                    <span class="highlight">Dream PC</span>
+                    in Canada
+                </h1>
+                
                 <p class="landing-description">
                     Configure your perfect custom PC with CAD pricing, automatic compatibility checks, and parts available from top Canadian retailers.
                 </p>
-                <button class="start-building-btn" onclick="goToBuilder()">Start Building</button>
+                
+                <div class="landing-buttons">
+                    <button class="btn btn-primary" onclick="goToBuilder()">
+                        Start Building →
+                    </button>
+                    <button class="btn btn-secondary" onclick="alert('Prebuilds coming soon!')">
+                        View Prebuilds
+                    </button>
+                </div>
             </div>
-        </header>
+        </div>
     </div>
 
     <!-- Builder Page (Hidden by default) -->
@@ -73,7 +112,6 @@
                 </div>
                 <button class="buy-btn" id="buy-btn">🛒 View Shopping Links</button>
                 <button class="reset-btn" id="reset-btn">🔄 Reset Build</button>
-                <button class="back-btn" onclick="goToLanding()">← Back to Home</button>
             </aside>
         </div>
 
@@ -95,11 +133,15 @@
         function goToBuilder() {
             document.getElementById('landing-page').style.display = 'none';
             document.getElementById('builder-page').style.display = 'block';
+            document.querySelector('.navbar-menu .nav-link:nth-child(2)').classList.add('active');
+            document.querySelector('.navbar-menu .nav-link:nth-child(1)').classList.remove('active');
         }
 
         function goToLanding() {
             document.getElementById('builder-page').style.display = 'none';
             document.getElementById('landing-page').style.display = 'block';
+            document.querySelector('.navbar-menu .nav-link:nth-child(1)').classList.add('active');
+            document.querySelector('.navbar-menu .nav-link:nth-child(2)').classList.remove('active');
         }
     </script>
 </body>
