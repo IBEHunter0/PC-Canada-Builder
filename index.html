@@ -7,43 +7,71 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>PC Canada Builder</h1>
-    <div>
-        <h2>CPU</h2>
-        <input type="text" id="cpu-search" placeholder="Search for CPU...">
-        <div id="cpu-list"></div>
-        <h2>GPU</h2>
-        <input type="text" id="gpu-search" placeholder="Search for GPU...">
-        <div id="gpu-list"></div>
-        <h2>RAM</h2>
-        <input type="text" id="ram-search" placeholder="Search for RAM...">
-        <div id="ram-list"></div>
-        <h2>Storage</h2>
-        <input type="text" id="storage-search" placeholder="Search for Storage...">
-        <div id="storage-list"></div>
-        <h2>Motherboard</h2>
-        <input type="text" id="motherboard-search" placeholder="Search for Motherboard...">
-        <div id="motherboard-list"></div>
-        <h2>PSU</h2>
-        <input type="text" id="psu-search" placeholder="Search for PSU...">
-        <div id="psu-list"></div>
-        <h2>Case</h2>
-        <input type="text" id="case-search" placeholder="Search for Case...">
-        <div id="case-list"></div>
-        <h2>Cooling</h2>
-        <input type="text" id="cooling-search" placeholder="Search for Cooling...">
-        <div id="cooling-list"></div>
-        <h2>Peripherals</h2>
-        <input type="text" id="peripherals-search" placeholder="Search for Peripherals...">
-        <div id="peripherals-list"></div>
-        <h2>Fans</h2>
-        <input type="text" id="fans-search" placeholder="Search for Fans...">
-        <div id="fans-list"></div>
+    <header>
+        <div class="header-container">
+            <h1>🖥️ PC Canada Builder</h1>
+            <p>Build your perfect PC with CAD pricing</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="main-content">
+            <!-- Navigation Menu -->
+            <nav class="component-nav">
+                <button class="nav-btn active" data-section="cpu">CPU</button>
+                <button class="nav-btn" data-section="motherboard">Motherboard</button>
+                <button class="nav-btn" data-section="gpu">GPU</button>
+                <button class="nav-btn" data-section="ram">RAM</button>
+                <button class="nav-btn" data-section="storage">Storage</button>
+                <button class="nav-btn" data-section="psu">PSU</button>
+                <button class="nav-btn" data-section="case">Case</button>
+                <button class="nav-btn" data-section="cooling">Cooling</button>
+                <button class="nav-btn" data-section="peripherals">Peripherals</button>
+                <button class="nav-btn" data-section="fans">Fans</button>
+            </nav>
+
+            <!-- Component Selection Area -->
+            <div class="selection-area">
+                <div class="section-header">
+                    <h2 id="section-title">CPU</h2>
+                    <div class="search-container">
+                        <input type="text" id="search-input" class="search-bar" placeholder="Search components...">
+                        <button class="search-btn">🔍</button>
+                    </div>
+                </div>
+
+                <div class="components-grid" id="components-grid">
+                    <!-- Components will be populated here by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Build Summary Sidebar -->
+        <aside class="build-summary">
+            <h3>Your Build</h3>
+            <div class="selected-components" id="selected-components">
+                <p class="empty-message">No components selected</p>
+            </div>
+            <div class="build-total">
+                <h4>Total CAD: <span id="total-price">$0.00</span></h4>
+            </div>
+            <button class="buy-btn" id="buy-btn">View Shopping Links</button>
+            <button class="reset-btn" id="reset-btn">Reset Build</button>
+        </aside>
     </div>
-    <div id="build-summary">
-        <h2>Build Summary</h2>
-        <div id="summary-details"></div>
+
+    <!-- Shopping Links Modal -->
+    <div id="shopping-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Where to Buy Your Parts</h2>
+            <div id="shopping-links" class="shopping-links">
+                <!-- Shopping links will be populated here -->
+            </div>
+        </div>
     </div>
+
+    <script src="data.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
