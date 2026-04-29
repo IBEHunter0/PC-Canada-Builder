@@ -3,75 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PC Canada Builder</title>
+    <title>PC Canada Builder - Build Your Dream PC</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <div class="header-container">
-            <h1>🖥️ PC Canada Builder</h1>
-            <p>Build your perfect PC with CAD pricing</p>
-        </div>
-    </header>
-
-    <div class="container">
-        <div class="main-content">
-            <!-- Navigation Menu -->
-            <nav class="component-nav">
-                <button class="nav-btn active" data-section="cpu">CPU</button>
-                <button class="nav-btn" data-section="motherboard">Motherboard</button>
-                <button class="nav-btn" data-section="gpu">GPU</button>
-                <button class="nav-btn" data-section="ram">RAM</button>
-                <button class="nav-btn" data-section="storage">Storage</button>
-                <button class="nav-btn" data-section="psu">PSU</button>
-                <button class="nav-btn" data-section="case">Case</button>
-                <button class="nav-btn" data-section="cooling">Cooling</button>
-                <button class="nav-btn" data-section="peripherals">Peripherals</button>
-                <button class="nav-btn" data-section="fans">Fans</button>
-            </nav>
-
-            <!-- Component Selection Area -->
-            <div class="selection-area">
-                <div class="section-header">
-                    <h2 id="section-title">CPU</h2>
-                    <div class="search-container">
-                        <input type="text" id="search-input" class="search-bar" placeholder="Search components...">
-                        <button class="search-btn">🔍</button>
-                    </div>
-                </div>
-
-                <div class="components-grid" id="components-grid">
-                    <!-- Components will be populated here by JavaScript -->
-                </div>
+    <!-- Landing Page -->
+    <div id="landing-page" class="landing-page">
+        <header class="landing-header">
+            <div class="landing-container">
+                <h1 class="landing-title">Canadian PC Builder</h1>
+                <h2 class="landing-subtitle">Build Your<br>Dream PC<br>in Canada</h2>
+                <p class="landing-description">
+                    Configure your perfect custom PC with CAD pricing, automatic compatibility checks, and parts available from top Canadian retailers.
+                </p>
+                <button class="start-building-btn" onclick="goToBuilder()">Start Building</button>
             </div>
-        </div>
-
-        <!-- Build Summary Sidebar -->
-        <aside class="build-summary">
-            <h3>Your Build</h3>
-            <div class="selected-components" id="selected-components">
-                <p class="empty-message">No components selected</p>
-            </div>
-            <div class="build-total">
-                <h4>Total CAD: <span id="total-price">$0.00</span></h4>
-            </div>
-            <button class="buy-btn" id="buy-btn">View Shopping Links</button>
-            <button class="reset-btn" id="reset-btn">Reset Build</button>
-        </aside>
+        </header>
     </div>
 
-    <!-- Shopping Links Modal -->
-    <div id="shopping-modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Where to Buy Your Parts</h2>
-            <div id="shopping-links" class="shopping-links">
-                <!-- Shopping links will be populated here -->
+    <!-- Builder Page (Hidden by default) -->
+    <div id="builder-page" class="builder-page" style="display: none;">
+        <header>
+            <div class="header-container">
+                <h1>🖥️ PC Canada Builder</h1>
+                <p>Build your perfect PC with CAD pricing</p>
+            </div>
+        </header>
+
+        <div class="container">
+            <div class="main-content">
+                <!-- Navigation Menu -->
+                <nav class="component-nav">
+                    <button class="nav-btn active" data-section="cpu">💻 CPU</button>
+                    <button class="nav-btn" data-section="motherboard">🧩 Motherboard</button>
+                    <button class="nav-btn" data-section="gpu">🎮 GPU</button>
+                    <button class="nav-btn" data-section="ram">📦 RAM</button>
+                    <button class="nav-btn" data-section="storage">💾 Storage</button>
+                    <button class="nav-btn" data-section="psu">⚡ PSU</button>
+                    <button class="nav-btn" data-section="case">📦 Case</button>
+                    <button class="nav-btn" data-section="cooling">❄️ Cooling</button>
+                    <button class="nav-btn" data-section="peripherals">🖱️ Peripherals</button>
+                    <button class="nav-btn" data-section="fans">🌀 Fans</button>
+                </nav>
+
+                <!-- Component Selection Area -->
+                <div class="selection-area">
+                    <div class="section-header">
+                        <h2 id="section-title">CPU</h2>
+                        <div class="search-container">
+                            <input type="text" id="search-input" class="search-bar" placeholder="Search components...">
+                            <button class="search-btn">🔍</button>
+                        </div>
+                    </div>
+
+                    <div class="components-grid" id="components-grid">
+                        <!-- Components will be populated here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Build Summary Sidebar -->
+            <aside class="build-summary">
+                <h3>Your Build</h3>
+                <div class="selected-components" id="selected-components">
+                    <p class="empty-message">No components selected</p>
+                </div>
+                <div class="build-total">
+                    <h4>Total CAD: <span id="total-price">$0.00</span></h4>
+                </div>
+                <button class="buy-btn" id="buy-btn">🛒 View Shopping Links</button>
+                <button class="reset-btn" id="reset-btn">🔄 Reset Build</button>
+                <button class="back-btn" onclick="goToLanding()">← Back to Home</button>
+            </aside>
+        </div>
+
+        <!-- Shopping Links Modal -->
+        <div id="shopping-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Where to Buy Your Parts</h2>
+                <div id="shopping-links" class="shopping-links">
+                    <!-- Shopping links will be populated here -->
+                </div>
             </div>
         </div>
     </div>
 
     <script src="data.js"></script>
     <script src="script.js"></script>
+    <script>
+        function goToBuilder() {
+            document.getElementById('landing-page').style.display = 'none';
+            document.getElementById('builder-page').style.display = 'block';
+        }
+
+        function goToLanding() {
+            document.getElementById('builder-page').style.display = 'none';
+            document.getElementById('landing-page').style.display = 'block';
+        }
+    </script>
 </body>
 </html>
