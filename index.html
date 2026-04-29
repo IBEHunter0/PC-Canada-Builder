@@ -1,148 +1,702 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CanadaBuild - PC Builder</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="navbar-container">
-            <div class="navbar-logo">
-                <div class="logo-icon">🖥️</div>
-                <div class="logo-text">
-                    <div class="logo-brand">CanadaBuild</div>
-                    <div class="logo-subtitle">PC BUILDER</div>
-                </div>
-            </div>
-            <div class="navbar-menu" id="navbar-menu">
-                <button class="nav-link active" onclick="goToLanding()">
-                    🏠 Home
-                </button>
-                <button class="nav-link" onclick="goToBuilder()">
-                    🖱️ PC Builder
-                </button>
-                <button class="nav-link" onclick="alert('Saved builds coming soon!')">
-                    📋 Saved Builds
-                </button>
-            </div>
-        </div>
-    </nav>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    <!-- Landing Page -->
-    <div id="landing-page" class="landing-page">
-        <div class="landing-content">
-            <div class="landing-text">
-                <div class="red-line"></div>
-                <p class="landing-label">CANADIAN PC BUILDER</p>
-                
-                <h1 class="landing-title">
-                    Build Your
-                    <span class="highlight">Dream PC</span>
-                    in Canada
-                </h1>
-                
-                <p class="landing-description">
-                    Configure your perfect custom PC with CAD pricing, automatic compatibility checks, and parts available from top Canadian retailers.
-                </p>
-                
-                <div class="landing-buttons">
-                    <button class="btn btn-primary" onclick="goToBuilder()">
-                        Start Building →
-                    </button>
-                    <button class="btn btn-secondary" onclick="alert('Prebuilds coming soon!')">
-                        View Prebuilds
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #0f0f0f;
+    color: #333;
+}
 
-    <!-- Builder Page (Hidden by default) -->
-    <div id="builder-page" class="builder-page" style="display: none;">
-        <header>
-            <div class="header-container">
-                <h1>🖥️ PC Canada Builder</h1>
-                <p>Build your perfect PC with CAD pricing</p>
-            </div>
-        </header>
+/* Navigation Bar */
+.navbar {
+    background: #1a1a1a;
+    border-bottom: 2px solid #dc143c;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
 
-        <div class="container">
-            <div class="main-content">
-                <!-- Navigation Menu -->
-                <nav class="component-nav">
-                    <button class="nav-btn active" data-section="cpu">💻 CPU</button>
-                    <button class="nav-btn" data-section="motherboard">🧩 Motherboard</button>
-                    <button class="nav-btn" data-section="gpu">🎮 GPU</button>
-                    <button class="nav-btn" data-section="ram">📦 RAM</button>
-                    <button class="nav-btn" data-section="storage">💾 Storage</button>
-                    <button class="nav-btn" data-section="psu">⚡ PSU</button>
-                    <button class="nav-btn" data-section="case">📦 Case</button>
-                    <button class="nav-btn" data-section="cooling">❄️ Cooling</button>
-                    <button class="nav-btn" data-section="peripherals">🖱️ Peripherals</button>
-                    <button class="nav-btn" data-section="fans">🌀 Fans</button>
-                </nav>
+.navbar-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+}
 
-                <!-- Component Selection Area -->
-                <div class="selection-area">
-                    <div class="section-header">
-                        <h2 id="section-title">CPU</h2>
-                        <div class="search-container">
-                            <input type="text" id="search-input" class="search-bar" placeholder="Search components...">
-                            <button class="search-btn">🔍</button>
-                        </div>
-                    </div>
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+}
 
-                    <div class="components-grid" id="components-grid">
-                        <!-- Components will be populated here by JavaScript -->
-                    </div>
-                </div>
-            </div>
+.logo-icon {
+    font-size: 2.5em;
+}
 
-            <!-- Build Summary Sidebar -->
-            <aside class="build-summary">
-                <h3>Your Build</h3>
-                <div class="selected-components" id="selected-components">
-                    <p class="empty-message">No components selected</p>
-                </div>
-                <div class="build-total">
-                    <h4>Total CAD: <span id="total-price">$0.00</span></h4>
-                </div>
-                <button class="buy-btn" id="buy-btn">🛒 View Shopping Links</button>
-                <button class="reset-btn" id="reset-btn">🔄 Reset Build</button>
-            </aside>
-        </div>
+.logo-text {
+    display: flex;
+    flex-direction: column;
+}
 
-        <!-- Shopping Links Modal -->
-        <div id="shopping-modal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Where to Buy Your Parts</h2>
-                <div id="shopping-links" class="shopping-links">
-                    <!-- Shopping links will be populated here -->
-                </div>
-            </div>
-        </div>
-    </div>
+.logo-brand {
+    color: white;
+    font-weight: 700;
+    font-size: 1.3em;
+    letter-spacing: 0.5px;
+}
 
-    <script src="data.js"></script>
-    <script src="script.js"></script>
-    <script>
-        function goToBuilder() {
-            document.getElementById('landing-page').style.display = 'none';
-            document.getElementById('builder-page').style.display = 'block';
-            document.querySelector('.navbar-menu .nav-link:nth-child(2)').classList.add('active');
-            document.querySelector('.navbar-menu .nav-link:nth-child(1)').classList.remove('active');
-        }
+.logo-subtitle {
+    color: #dc143c;
+    font-size: 0.75em;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
 
-        function goToLanding() {
-            document.getElementById('builder-page').style.display = 'none';
-            document.getElementById('landing-page').style.display = 'block';
-            document.querySelector('.navbar-menu .nav-link:nth-child(1)').classList.add('active');
-            document.querySelector('.navbar-menu .nav-link:nth-child(2)').classList.remove('active');
-        }
-    </script>
-</body>
-</html>
+.navbar-menu {
+    display: flex;
+    gap: 10px;
+}
+
+.nav-link {
+    padding: 10px 18px;
+    background: transparent;
+    color: #ccc;
+    border: 2px solid #555;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+    font-size: 0.95em;
+}
+
+.nav-link:hover {
+    border-color: #dc143c;
+    color: #dc143c;
+}
+
+.nav-link.active {
+    background: #dc143c;
+    color: white;
+    border-color: #dc143c;
+}
+
+/* Landing Page */
+.landing-page {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+    padding: 60px 20px;
+}
+
+.landing-content {
+    max-width: 900px;
+    width: 100%;
+}
+
+.landing-text {
+    color: white;
+}
+
+.red-line {
+    width: 60px;
+    height: 3px;
+    background: #dc143c;
+    margin-bottom: 20px;
+}
+
+.landing-label {
+    color: #dc143c;
+    font-size: 0.9em;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.landing-title {
+    font-size: 4.5em;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 30px;
+}
+
+.landing-title .highlight {
+    color: #dc143c;
+}
+
+.landing-description {
+    font-size: 1.1em;
+    color: #ccc;
+    line-height: 1.7;
+    margin-bottom: 40px;
+    max-width: 600px;
+}
+
+.landing-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.btn {
+    padding: 16px 40px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1.1em;
+    transition: all 0.3s;
+    letter-spacing: 0.5px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #dc143c 0%, #8b0000 100%);
+    color: white;
+    box-shadow: 0 8px 25px rgba(220, 20, 60, 0.4);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(220, 20, 60, 0.6);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid #555;
+}
+
+.btn-secondary:hover {
+    border-color: #dc143c;
+    color: #dc143c;
+}
+
+/* Builder Page */
+.builder-page {
+    background: linear-gradient(135deg, #dc143c 0%, #1a1a1a 100%);
+    min-height: 100vh;
+}
+
+header {
+    background: #1a1a1a;
+    padding: 30px 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    border-bottom: 3px solid #dc143c;
+}
+
+.header-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+header h1 {
+    color: #dc143c;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+header p {
+    color: #ccc;
+    font-size: 1.1em;
+}
+
+/* Container */
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+    display: flex;
+    gap: 30px;
+}
+
+.main-content {
+    flex: 1;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Navigation */
+.component-nav {
+    display: flex;
+    flex-wrap: wrap;
+    background: #f8f9fa;
+    padding: 15px;
+    gap: 10px;
+    border-bottom: 2px solid #dc143c;
+}
+
+.nav-btn {
+    padding: 10px 18px;
+    border: 2px solid #ddd;
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-size: 0.95em;
+}
+
+.nav-btn:hover {
+    border-color: #dc143c;
+    color: #dc143c;
+}
+
+.nav-btn.active {
+    background: linear-gradient(135deg, #dc143c 0%, #8b0000 100%);
+    color: white;
+    border-color: transparent;
+}
+
+/* Selection Area */
+.selection-area {
+    padding: 30px;
+}
+
+.section-header {
+    margin-bottom: 30px;
+}
+
+.section-header h2 {
+    color: #dc143c;
+    margin-bottom: 15px;
+    font-size: 1.8em;
+    border-left: 4px solid #dc143c;
+    padding-left: 10px;
+}
+
+.search-container {
+    display: flex;
+    gap: 10px;
+}
+
+.search-bar {
+    flex: 1;
+    padding: 12px 15px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 1em;
+    transition: border-color 0.3s;
+}
+
+.search-bar:focus {
+    outline: none;
+    border-color: #dc143c;
+    box-shadow: 0 0 5px rgba(220, 20, 60, 0.3);
+}
+
+.search-btn {
+    padding: 12px 20px;
+    background: #dc143c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.search-btn:hover {
+    background: #8b0000;
+    transform: translateY(-2px);
+}
+
+/* Components Grid */
+.components-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.component-card {
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #fff;
+}
+
+.component-card:hover {
+    border-color: #dc143c;
+    box-shadow: 0 6px 20px rgba(220, 20, 60, 0.2);
+    transform: translateY(-3px);
+}
+
+.component-card.selected {
+    border-color: #dc143c;
+    border-width: 3px;
+    background: linear-gradient(135deg, rgba(220, 20, 60, 0.08) 0%, rgba(26, 26, 26, 0.08) 100%);
+    box-shadow: 0 6px 20px rgba(220, 20, 60, 0.3);
+}
+
+.component-name {
+    font-weight: 600;
+    font-size: 1.05em;
+    color: #333;
+    margin-bottom: 8px;
+    line-height: 1.3;
+}
+
+.component-specs {
+    color: #666;
+    font-size: 0.85em;
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+.component-price {
+    font-size: 1.3em;
+    color: #dc143c;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.component-retailer {
+    color: #999;
+    font-size: 0.8em;
+    margin-bottom: 12px;
+}
+
+.component-btn {
+    width: 100%;
+    padding: 10px;
+    background: #f5f5f5;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.component-btn:hover {
+    border-color: #dc143c;
+    background: #f0f0f0;
+}
+
+.component-btn.selected {
+    background: linear-gradient(135deg, #dc143c 0%, #8b0000 100%);
+    color: white;
+    border-color: transparent;
+}
+
+.empty-message {
+    text-align: center;
+    color: #999;
+    padding: 40px 20px;
+    grid-column: 1 / -1;
+}
+
+/* Sidebar */
+.build-summary {
+    width: 320px;
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    height: fit-content;
+    position: sticky;
+    top: 100px;
+    border-left: 4px solid #dc143c;
+}
+
+.build-summary h3 {
+    color: #dc143c;
+    margin-bottom: 20px;
+    font-size: 1.3em;
+    border-bottom: 2px solid #dc143c;
+    padding-bottom: 10px;
+}
+
+.selected-components {
+    max-height: 350px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.selected-component-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 12px;
+    background: #f9f9f9;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+    border-left: 3px solid #dc143c;
+}
+
+.selected-component-item strong {
+    display: block;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+.selected-component-item small {
+    display: block;
+    color: #999;
+    margin-bottom: 6px;
+}
+
+.component-price-small {
+    color: #dc143c;
+    font-weight: 600;
+}
+
+.remove-btn {
+    background: none;
+    border: none;
+    color: #dc143c;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: color 0.2s;
+    padding: 0;
+    margin-left: 10px;
+}
+
+.remove-btn:hover {
+    color: #8b0000;
+}
+
+.build-total {
+    background: linear-gradient(135deg, #dc143c 0%, #8b0000 100%);
+    color: white;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.build-total h4 {
+    margin: 0;
+    font-size: 1.1em;
+}
+
+#total-price {
+    font-size: 1.3em;
+    font-weight: 700;
+}
+
+.buy-btn,
+.reset-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1em;
+    transition: all 0.3s;
+    margin-bottom: 10px;
+}
+
+.buy-btn {
+    background: linear-gradient(135deg, #dc143c 0%, #8b0000 100%);
+    color: white;
+}
+
+.buy-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(220, 20, 60, 0.4);
+}
+
+.reset-btn {
+    background: #f0f0f0;
+    color: #333;
+    border: 2px solid #ddd;
+}
+
+.reset-btn:hover {
+    background: #e8e8e8;
+    border-color: #dc143c;
+    color: #dc143c;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
+}
+
+.modal-content {
+    background-color: white;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 750px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    border-top: 4px solid #dc143c;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close:hover {
+    color: #dc143c;
+}
+
+.modal-content h2 {
+    color: #dc143c;
+    margin-bottom: 20px;
+}
+
+.shopping-links {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.shopping-link {
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 15px;
+    background: #f9f9f9;
+    transition: all 0.3s;
+    border-left: 4px solid #dc143c;
+}
+
+.shopping-link:hover {
+    border-color: #dc143c;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(220, 20, 60, 0.1);
+}
+
+.shopping-link h4 {
+    color: #dc143c;
+    margin-bottom: 10px;
+    font-size: 1.05em;
+}
+
+.shopping-link ul {
+    color: #666;
+    margin: 0 0 15px 20px;
+    padding: 0;
+}
+
+.shopping-link li {
+    margin-bottom: 5px;
+}
+
+.shopping-link a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #dc143c 0%, #8b0000 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: transform 0.2s;
+}
+
+.shopping-link a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(220, 20, 60, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .build-summary {
+        width: 100%;
+        position: static;
+    }
+
+    .components-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar-menu {
+        gap: 5px;
+    }
+
+    .nav-link {
+        padding: 8px 12px;
+        font-size: 0.85em;
+    }
+
+    header h1 {
+        font-size: 1.8em;
+    }
+
+    .landing-title {
+        font-size: 2.5em;
+    }
+
+    .landing-description {
+        font-size: 1em;
+    }
+
+    .landing-buttons {
+        flex-direction: column;
+    }
+
+    .btn {
+        padding: 14px 30px;
+        font-size: 1em;
+    }
+
+    .component-nav {
+        flex-direction: column;
+    }
+
+    .nav-btn {
+        width: 100%;
+    }
+
+    .search-container {
+        flex-direction: column;
+    }
+
+    .search-bar,
+    .search-btn {
+        width: 100%;
+    }
+
+    .components-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .selection-area {
+        padding: 20px;
+    }
+
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+    }
+}
